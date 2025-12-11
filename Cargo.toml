@@ -17,6 +17,7 @@ goblin = { version = "0.10.3", default-features = false }
 patina = { version = "18", features = ["serde"] }
 patina_stacktrace = { version = "18" }
 log = { version = "^0.4", default-features = false, features = [
+  "max_level_info",
   "release_max_level_warn",
 ] }
 spin = "^0.9.8"
