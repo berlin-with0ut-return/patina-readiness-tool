@@ -18,6 +18,7 @@ cfg_if::cfg_if! {
         use dxe_readiness_capture::core_start;
         use uefi::prelude::*;
         use uefi::guid;
+        use log::LevelFilter;
 
         #[entry]
         fn main() -> Status {
@@ -28,7 +29,9 @@ cfg_if::cfg_if! {
             system::with_config_table(|t| {
                 let config_entry = t.iter().find(|ct| ct.guid == hob_list_guid).unwrap();
                 let physical_hob_list = config_entry.address;
-                core_start(physical_hob_list);
+                let y = core_start(physical_hob_list);
+
+                uefi::println!("{}", y);
             });
 
             Status::SUCCESS

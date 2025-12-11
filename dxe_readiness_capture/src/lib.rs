@@ -38,16 +38,19 @@ cfg_if::cfg_if! {
         }
 
         // Called by platform-specific binaries after initializing the logger.
-        pub fn core_start(physical_hob_list: *const c_void) {
+        pub fn core_start(physical_hob_list: *const c_void) -> String {
             log::info!("Dxe Readiness Capture Tool");
 
             let app = CaptureApp::new(physical_hob_list);
+            let x = app.capture();
 
-            if let Ok(json_str) = app.capture() {
-                log::info!("{}", json_str);
-            } else {
-                log::info!("Failed to dump HOB list to JSON");
-            }
+            // if let Ok(ref json_str) = x {
+            //     log::info!("{}", json_str);
+            // } else {
+            //     log::info!("Failed to dump HOB list to JSON");
+            // }
+
+            return x.unwrap().clone();
         }
     }
 }
